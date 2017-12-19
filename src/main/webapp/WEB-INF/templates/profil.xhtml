@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head(title='Profil', style='profil', js='profil')">
+    <title>Details</title>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="custom-card profil-card">
+                <div class="background" th:style="'background-image:url(/resources/images/profil-background/background_' + ${backgroundNumber} + '.jpg);'">
+                    <img src="/resources/images/user-pictures/user-picture1.jpg" alt="profil" class="img-profil img-fluid"/>
+                </div>
+                <h4 class="text-center" th:text="${enseignant.prenom + ' ' + enseignant.nom}"></h4>
+                <div class="badges text-center">
+                    <span class="badge badge-secondary">JEE</span>
+                    <span class="badge badge-secondary">DevOps</span>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="custom-card">
+                        <h3 class="stagiaires-title">Votre signature</h3>
+                        <div class="alert alert-warning" role="alert" th:if="${enseignant.signature == null}">
+                            Veuillez importer votre signature
+                        </div>
+                        <div class="signature" role="alert" th:if="${enseignant.signature != null}">
+                            <img th:src="@{'resources/signatures/' + ${enseignant.signature}}" class="img-fluid signature" alt="signature"/>
+                        </div>
+                            <form method="POST" th:action="@{'/uploadFile?' + ${_csrf.parameterName} + '=' + ${_csrf.token}}" enctype="multipart/form-data">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <div class="row">
+                                <div class="col-5">
+                                    <div class="filename" th:text="${enseignant.signature == null ? 'Aucun fichier selectionné.' : 'signature.jpg' }"></div>
+                                </div>
+                                <div class="col-7">
+                                    <label class="btn btn-primary ">
+                                        <input type="file" id="file" name="file" class="custom-file-input"/>
+                                        <i class="fa fa-search"></i>
+                                        <span  th:text="${enseignant.signature == null ? 'Choisir' : 'Changer'}">Choisir</span>
+                                    </label>
+                                    <button type="submit" class="btn btn-secondary validate disabled"><i class="fa fa-upload"></i> Valider</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="custom-card">
+                        <h3 class="stagiaires-title">Vos stagiaires</h3>
+                        <div class="stagiaires" th:each="stagiaire : ${stagiaires}">
+                            <a th:href="@{'/etudiant/' + ${stagiaire.id}}">
+                                <span th:text="${stagiaire.nom}"></span>
+                                <span th:text="${stagiaire.prenom}"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+        <div class="row">
+            <div class="col">
+                <a th:if="${userId == null}" class="action btn btn-outline-info float-right" th:href="@{/home}"><i class="fa fa-arrow-circle-o-left"></i> Retour</a>
+                <a th:if="${userId != null}" class="action btn btn-outline-info float-right" th:href="${'/fiche_visite/' + userId}"><i class="fa fa-arrow-circle-o-left"></i> Retour</a>
+            </div>
+        </div>
+</div>
+</body>
+</html>

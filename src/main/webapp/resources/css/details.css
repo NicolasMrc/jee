@@ -1,0 +1,86 @@
+h2{
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.btn.action{
+    margin: 10px 5px;
+}
+
+.form-control{
+    margin-bottom: 5px;
+}
+
+.btn-bool{
+    cursor: pointer;
+    margin: 10px 1px;
+    padding: 10px 5px;
+}
+
+.card.entreprise{
+    margin-top: 10px;
+}
+
+.divider{
+    height: 1px;
+    width: 100%;
+    display: block;
+    background-color: #d0d0d0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.hidden{
+    display: none;
+}
+
+.custom-card{
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+}
+
+.img-profil{
+    margin-right: auto;
+    margin-left: auto;
+    width: 120px;
+    height: 120px;
+    position: relative;
+    top: 63px;
+    display: block;
+    border: 5px solid white;
+    border-radius: 50%;
+}
+
+.background{
+    background: url('/resources/images/profil-background/background_1.jpg');
+    height: 150px;
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover; /* version standardisée */
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 40px;
+}
+
+.promo{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.profil-card{
+    padding: 0;
+}
+
+.alert-danger{
+    margin-top: 50px;
+}
+
+.error-title{
+    margin-top: 60px;
+}
+
+.alert-danger p{
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 0;
+}
+

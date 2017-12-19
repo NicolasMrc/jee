@@ -1,0 +1,14 @@
+
+body{
+    background-color: #eeeeee;
+}
+
+.card{
+    margin-top: 50px;
+}
+
+body{
+    background: url('../images/bg_efrei.png') no-repeat center fixed;;
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover; /* version standardisée */
+}

@@ -1,0 +1,65 @@
+.custom-card{
+    margin-top: 40px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+}
+
+.img-profil{
+    margin-right: auto;
+    margin-left: auto;
+    width: 120px;
+    height: 120px;
+    position: relative;
+    top: 63px;
+    display: block;
+    border: 5px solid white;
+    border-radius: 50%;
+}
+
+.background{
+    background: url('/resources/images/profil-background/background_1.jpg');
+    height: 150px;
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover; /* version standardisée */
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 40px;
+}
+
+.badges{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.custom-card.profil-card{
+    padding:0;
+}
+
+.stagiaires{
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.stagiaires-title{
+    margin-bottom: 20px;
+}
+
+.alert{
+    margin-top: 20px;
+}
+
+.custom-file-input{
+    display: none;
+}
+
+.validate{
+    margin-left: 10px;
+}
+
+.signature{
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+label{
+    margin-bottom: 0;
+}

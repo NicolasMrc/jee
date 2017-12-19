@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head(title='Acceuil', style='stagiaires', js='index')">
+    <title>Acceuil</title>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h1 class="stagiaires-title text-center">Vos Stagiaires</h1>
+        </div>
+    </div>
+    <div class="row" th:if="${stagiaires.size() == 0}">
+        <div class="col-6 offset-3">
+            <div class="alert alert-primary" role="alert">
+                Aucun stagiaire ne vous a été affecté! Contactez le service des stages.
+            </div>
+        </div>
+    </div>
+    <div th:if="${stagiaires.size() > 0}" class="row">
+        <div class="col">
+            <form action="stagiaire">
+                <input type="hidden" name="action" value="null"/>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col"><p class="small-td">Selection</p></th>
+                        <th scope="col"><p class="small-td">Groupe</p></th>
+                        <th scope="col"><p class="small-td">Nom</p></th>
+                        <th scope="col"><p class="small-td">Cahier des charges</p></th>
+                        <th scope="col"><p class="small-td">Fiche visite</p></th>
+                        <th scope="col"><p class="small-td">Fiche eval entr</p></th>
+                        <th scope="col"><p class="small-td">Sondage web</p></th>
+                        <th scope="col"><p class="small-td">Rapport rendu</p></th>
+                        <th scope="col"><p class="small-td">Soutenance</p></th>
+                        <th scope="col"><p class="small-td">Viste planif</p></th>
+                        <th scope="col"><p class="small-td">Visite Faite</p></th>
+                        <th scope="col"><p class="small-td">Dates</p></th>
+                        <th scope="col"><p class="small-td">Entreprise</p></th>
+                        <th scope="col"><p class="small-td">Maitre de stage</p></th>
+                        <th scope="col"><p class="small-td">Note Tech</p></th>
+                        <th scope="col"><p class="small-td">Note Com</p></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="stagiaire : ${stagiaires}">
+                        <td class="text-center radio-td"><input class="form-check-input" type="radio" name="selectedStagiaire" th:value="${stagiaire.id}"/></td>
+                        <td>
+                            <select class="form-control" th:id="${'promo_' + stagiaire.id}">
+                                <option th:each="promo : ${promos}"
+                                        th:text="${promo.nom}"
+                                        th:value="${promo.id}"
+                                        th:selected="(${promo.id} == ${stagiaire.promo.id})"></option>
+                            </select>
+                        </td>
+                        <td><p th:text="${stagiaire.nom}"></p></td>
+                        <td>
+                            <div th:id="${'cahier-des-charges_' + stagiaire.id}" class="boolean-td" th:classappend="${stagiaire.stage.cahierDesCharges ? 'green' : 'red'}"></div>
+                        </td>
+                        <td>
+                            <div th:id="${'fiche-visite_' + stagiaire.id}" class="boolean-td" th:classappend="${stagiaire.stage.ficheVisite ? 'green' : 'red'}"></div>
+                        </td>
+                        <td>
+                            <div th:id="${'fiche-evaluation-entreprise_' + stagiaire.id}" class="boolean-td" th:classappend="${stagiaire.stage.ficheEvaluationEntreprise ? 'green' : 'red'}"></div>
+                        </td>
+                        <td>
+                            <div th:id="${'sondage-web_' + stagiaire.id}" class="boolean-td" th:classappend="${stagiaire.stage.sondageWeb ? 'green' : 'red'}"></div>
+                        </td>
+                        <td>
+                            <div th:id="${'rendu-rapport_' + stagiaire.id}" class="boolean-td" th:classappend="${stagiaire.stage.renduRapport ? 'green' : 'red'}"></div>
+                        </td>
+                        <td>
+                            <div th:id="${'soutenance_' + stagiaire.id}" class="boolean-td" th:classappend="${stagiaire.stage.soutenance ? 'green' : 'red'}"></div>
+                        </td>
+                        <td>
+                            <div th:id="${'visite-planifiee_' + stagiaire.id}" class="boolean-td" th:classappend="${stagiaire.stage.visitePlanifiee ? 'green' : 'red'}"></div>
+                        </td>
+                        <td>
+                            <div th:id="${'visite-faite_' + stagiaire.id}" class="boolean-td" th:classappend="${stagiaire.stage.visiteFaite ? 'green' : 'red'}"></div>
+                        </td>
+                        <td class="date text-center center-block">
+                            <input th:id="${'date-debut_' + stagiaire.id}" type="date" class="form-control input-date"  th:value="${stagiaire.stage.debut}"/>
+                            <i class=" fa fa-arrow-down"></i>
+                            <input th:id="${'date-fin_' + stagiaire.id}" type="date" class="form-control input-date"  th:value="${stagiaire.stage.fin}"/>
+                        </td>
+                        <td class="entreprise">
+                            <select class="form-control entreprise-td" th:id="${'entreprise_' + stagiaire.id}">
+                                <option th:selected="(${stagiaire.stage.entreprise == null})" th:if="(${stagiaire.stage.entreprise == null})"></option>
+                                <option th:each="entreprise : ${entreprises}"
+                                        th:text="${entreprise.nom}"
+                                        th:value="${entreprise.id}"
+                                        th:selected="(${stagiaire.stage.entreprise != null ? entreprise.id == stagiaire.stage.entreprise.id : false})" th:data-adresse="${entreprise.adresse}"></option>
+                            </select>
+                            <div class="alert alert-secondary" th:id="${'adresse_' + stagiaire.id}" th:text='${stagiaire.stage.entreprise != null ? stagiaire.stage.entreprise.adresse : "Aucune entreprise selectionée"}'></div>
+                        </td>
+                        <td class="text-center"><input placeholder="Maitre de stage" th:id="${'maitre-de-stage_' + stagiaire.id}"  type="text" class="form-control maitre-de-stage" th:value="${stagiaire.stage.maitreDeStage}" /></td>
+                        <td class="text-center note" ><input th:id="${'note-tech_' + stagiaire.id}" type="text" class="form-control" th:value="${stagiaire.stage.noteTech}"/></td>
+                        <td class="text-center note" ><input th:id="${'note-com_' + stagiaire.id}" type="text" class="form-control" th:value="${stagiaire.stage.noteCom}"/></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div th:classappend="${stagiaires.size() > 0 ? 'col' : 'col-6 offset-3'}">
+            <a href="/etudiant/0" th:if="${stagiaires.size() > 0}" class="disabled btn btn-outline-warning float-right" id="details"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Détails</a>
+            <div th:if="${stagiaires.size() > 0}" class="btn btn-outline-primary float-right" id="validate"><i class="fa fa-floppy-o" aria-hidden="true"></i> Valider</div>
+            <a class="btn btn-outline-primary float-right" id="add" th:href="@{/etudiants}"><i class="fa fa-plus-circle" aria-hidden="true"></i> Ajouter</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

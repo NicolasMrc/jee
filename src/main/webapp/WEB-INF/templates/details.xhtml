@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head(title='Details', style='details', js='details')">
+    <title>Details</title>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<div class="container-fluid">
+
+    <div class="row" th:if="${error != null}">
+        <div class="col">
+            <h1 class="error-title text-center">Erreur</h1>
+        </div>
+    </div>
+    <div class="row" th:if="${error != null}">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="alert alert-danger text-center">
+                <p th:text="${error}"></p><a th:href="@{/home}" class="btn btn-danger">Acceuil</a>
+            </div>
+        </div>
+    </div>
+    <div class="row" th:if="${error == null}">
+        <div class="col">
+            <h2 class="title">Details de <span th:text="${etudiant.prenom + ' ' + etudiant.nom}"></span></h2>
+            <div id="id-etudiant" class="hidden" th:text="${etudiant.id}"></div>
+        </div>
+    </div>
+    <form th:if="${error == null}" th:action="@{/etudiant/modifier}" th:object="${etudiant}" method="post">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="custom-card profil-card">
+                    <div class="background" th:style="'background-image:url(/resources/images/profil-background/background_' + ${backgroundNumber} + '.jpg);'">
+                        <img th:src="${'/resources/images/user-pictures/' + etudiant.photo}" alt="profil" class="img-profil img-fluid"/>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="text-center" th:text="${etudiant.prenom + ' ' + etudiant.nom}"></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="promo">
+                                <label for="promo">Promo</label>
+                                <select class="form-control" id="promo">
+                                    <option th:each="promo : ${promos}"
+                                            th:text="${promo.nom}"
+                                            th:value="${promo.id}"
+                                            th:selected="(${promo.id} == ${etudiant.promo.id})"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-9">
+                <div class="custom-card">
+                        <div class="row">
+                            <div class="col"><h3>Suivi de stage</h3></div>
+                            <div id="id-stage" class="hidden" th:text="${etudiant.stage.id}"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="btn-bool badge" th:classappend="${etudiant.stage.cahierDesCharges ? 'badge-success' : 'badge-danger'}">
+                                    <p id="cahierDesCharges" class="hidden" th:text="${etudiant.stage.cahierDesCharges}"></p>
+                                    <i class="fa" th:classappend="${etudiant.stage.cahierDesCharges ? 'fa-check' : 'fa-times'}"></i> Cahier des charges
+                                </div>
+                                <div class="btn-bool badge" th:classappend="${etudiant.stage.ficheVisite ? 'badge-success' : 'badge-danger'}">
+                                    <p id="ficheVisite" class="hidden" th:text="${etudiant.stage.ficheVisite}"></p>
+                                    <i class="fa" th:classappend="${etudiant.stage.ficheVisite ? 'fa-check' : 'fa-times'}"></i> Fiche visite
+                                </div>
+                                <div class="btn-bool badge" th:classappend="${etudiant.stage.ficheEvaluationEntreprise ? 'badge-success' : 'badge-danger'}">
+                                    <p id="ficheEvaluationEntreprise" class="hidden" th:text="${etudiant.stage.ficheEvaluationEntreprise}"></p>
+                                    <i class="fa" th:classappend="${etudiant.stage.ficheEvaluationEntreprise ? 'fa-check' : 'fa-times'}"></i> Fiche evaluation
+                                </div>
+                                <div class="btn-bool badge" th:classappend="${etudiant.stage.sondageWeb ? 'badge-success' : 'badge-danger'}">
+                                    <p id="sondageWeb" class="hidden" th:text="${etudiant.stage.sondageWeb}"></p>
+                                    <i class="fa" th:classappend="${etudiant.stage.sondageWeb ? 'fa-check' : 'fa-times'}"></i> Sondage web
+                                </div>
+                                <div class="btn-bool badge" th:classappend="${etudiant.stage.renduRapport ? 'badge-success' : 'badge-danger'}">
+                                    <p id="renduRapport" class="hidden" th:text="${etudiant.stage.renduRapport}"></p>
+                                    <i class="fa" th:classappend="${etudiant.stage.renduRapport ? 'fa-check' : 'fa-times'}"></i> Rapport rendu
+                                </div>
+                                <div class="btn-bool badge" th:classappend="${etudiant.stage.soutenance ? 'badge-success' : 'badge-danger'}">
+                                    <p id="soutenance" class="hidden" th:text="${etudiant.stage.soutenance}"></p>
+                                    <i class="fa" th:classappend="${etudiant.stage.soutenance ? 'fa-check' : 'fa-times'}"></i> Soutenance
+                                </div>
+                                <div class="btn-bool badge" th:classappend="${etudiant.stage.visitePlanifiee ? 'badge-success' : 'badge-danger'}">
+                                    <p id="visitePlanifiee" class="hidden" th:text="${etudiant.stage.visitePlanifiee}"></p>
+                                    <i class="fa" th:classappend="${etudiant.stage.visitePlanifiee ? 'fa-check' : 'fa-times'}"></i> Visite planifiee
+                                </div>
+                                <div class="btn-bool badge" th:classappend="${etudiant.stage.visiteFaite ? 'badge-success' : 'badge-danger'}">
+                                    <p id="visiteFaite" class="hidden" th:text="${etudiant.stage.visiteFaite}"></p>
+                                    <i class="fa" th:classappend="${etudiant.stage.visiteFaite ? 'fa-check' : 'fa-times'}"></i> Visite Faite
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="divider"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="note-tech">Maitre de Stage</label>
+                                <input placeholder="Maitre de Stage" class="form-control" type="text" th:value="${etudiant.stage.maitreDeStage}" id="maitre-de-stage"/>
+                            </div>
+                            <div class="col">
+                                <label for="note-tech">Note Technique</label>
+                                <input placeholder="Note Technique" class="form-control" th:max="20" type="number" th:value="${etudiant.stage.noteTech}" id="note-tech"/>
+                            </div>
+                            <div class="col">
+                                <label for="note-tech">Note Communication</label>
+                                <input placeholder="Note Communication" class="form-control" th:max="20" type="number" th:value="${etudiant.stage.noteCom}" id="note-com"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="entreprise">Entreprise</label>
+                                <select class="form-control" id="entreprise">
+                                    <option th:each="entreprise : ${entreprises}"
+                                            th:text="${entreprise.nom}"
+                                            th:value="${entreprise.id}"
+                                            th:selected="(${entreprise.id} == ${etudiant.stage.entreprise.id})"></option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="debut">Début</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    <input class="form-control" type="date" th:value="${etudiant.stage.debut}" id="debut"/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="fin">Fin</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    <input class="form-control" type="date" th:value="${etudiant.stage.fin}" id="fin"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="description-mission">Description de la mission</label>
+                                    <textarea class="form-control" id="description-mission" rows="3" placeholder="Description" th:text="${etudiant.stage.descriptionMission != null ? etudiant.stage.descriptionMission : '' }"></textarea>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="commentaire">Commentaire</label>
+                                    <textarea class="form-control" id="commentaire" rows="3" placeholder="Commentaire" th:text="${etudiant.stage.commentaire != null ? etudiant.stage.commentaire : ''}"></textarea>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="action btn btn-outline-success float-right" id="btnSave"><i class="fa fa-floppy-o"></i> Sauvegarder</div>
+                <div class="action btn btn-outline-primary float-right" id="newEntreprise" data-toggle="modal" data-target="#entrepriseModal"><i class="fa fa-plus"></i> Ajouter une nouvelle entreprise</div>
+                <a class="action btn btn-outline-primary float-right" th:href="@{'/fiche_visite/' + ${etudiant.id}}"><i class="fa fa-pencil-square-o"></i> Renseigner la fiche de visite</a>
+                <a class="action btn btn-outline-info float-right" th:href="@{/home}"><i class="fa fa-arrow-circle-o-left"></i> Retour</a>
+            </div>
+        </div>
+    </form>
+
+    <div class="modal fade" id="entrepriseModal" tabindex="-1" role="dialog" aria-labelledby="entrepriseModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter une nouvelle entreprise</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <label for="nom-entreprise">Nom</label>
+                            <input type="text" class="form-control" id="nom-entreprise"/>
+                        </div>
+                        <div class="col">
+                            <label for="adresse-entreprise">Adresse</label>
+                            <input type="text" class="form-control" id="adresse-entreprise"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-undo"></i> Annuler</button>
+                    <button type="button" class="btn btn-primary" id="addEntreprise"><i class="fa fa-floppy-o"></i> Ajouter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

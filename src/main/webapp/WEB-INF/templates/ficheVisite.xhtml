@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head(title='Fiche Visite', style='fiche', js='fiche')">
+    <title>Details</title>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="title">Fiche visite de <span th:text="${etudiant.prenom + ' ' + etudiant.nom}"></span></h3>
+                            <p class="hidden" id="idEtudiant" th:text="${etudiant.id}"></p>
+                        </div>
+                    </div>
+                    <div class="row" th:if="${enseignant.signature == null}">
+                        <div class="col">
+                            <div class="alert alert-warning" role="alert">
+                                Pour exporter une fiche de visite signée vous devez tout d'abord importer votre signature sur votre
+                                <a th:href="${'/profil/' + etudiant.id}" class="btn btn-outline-primary">Profil</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Stagiaire :</p>
+                        </div>
+                        <div class="col-6">
+                            <p>Année : </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <input disabled class="form-control" th:value="${etudiant.prenom + ' ' + etudiant.nom}"/>
+                        </div>
+                        <div class="col-6">
+                            <input disabled class="form-control" th:value="${etudiant.promo.nom}"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p>Entreprise : </p>
+                        </div>
+                        <div class="col-6">
+                            <p>Maitre de stage :</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <input disabled class="form-control" th:value="${etudiant.stage.entreprise.nom + ' - ' + etudiant.stage.entreprise.adresse}"/>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="maitre-de-stage" th:value="${etudiant.stage.maitreDeStage}" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div th:classappend="${etudiant.stage.cahierDesCharges ? 'btn-success' : 'btn-danger'}" class="btn btn-block">
+                                <i class="fa" th:classappend="${etudiant.stage.cahierDesCharges ? 'fa-check' : 'fa-times'}"></i> Cahier des charges
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div th:if="${enseignant.signature != null}" class="action float-right btn btn-outline-primary" id="generatePdf"><i class="fa fa-sign-out"></i> Exporter</div>
+            <div th:if="${enseignant.signature == null}" class="action float-right btn btn-outline-secondary" ><i class="fa fa-sign-out"></i> Exporter</div>
+            <div class="action float-right btn btn-outline-primary" id="generateDraft"><i class="fa fa-sign-out"></i> Exporter un brouillon</div>
+            <a class="action btn btn-outline-info float-right" th:href="@{'/etudiant/' + ${etudiant.id}}"><i class="fa fa-arrow-circle-o-left"></i> Retour</a>
+        </div>
+    </div>
+
+    <iframe src="" id="fichePDF" frameborder="0"></iframe>
+</div>
+</body>
+</html>

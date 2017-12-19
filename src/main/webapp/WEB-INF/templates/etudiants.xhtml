@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head(title='Etudiants', style='etudiants', js='etudiants')">
+    <title>Acceuil</title>
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h1 class="title text-center">Étudiants</h1>
+        </div>
+    </div>
+    <div class="row" th:if="${etudiants.size() == 0}">
+        <div class="col-6 offset-3">
+            <div class="alert alert-primary" role="alert">
+                Aucun étudiant n'est présent dans le système. Veuillez contacter un administrateur.
+            </div>
+        </div>
+    </div>
+    <div th:if="${etudiants.size() > 0}" class="row">
+        <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col"><p >Selection</p></th>
+                        <th scope="col"><p>Groupe</p></th>
+                        <th scope="col"><p>Nom</p></th>
+                        <th scope="col"><p>Prénom</p></th>
+                        <th scope="col"><p>Début</p></th>
+                        <th scope="col"><p>Fin</p></th>
+                        <th scope="col"><p>Entreprise</p></th>
+                        <th scope="col"><p>Maitre de stage</p></th>
+                        <th scope="col"><p>Tuteur</p></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="etudiant : ${etudiants}">
+                        <td class="text-center"><input class="form-check-input" type="radio" name="selectedEtudiant" th:value="${etudiant.id}"/></td>
+                        <td><p th:text="${etudiant.promo != null ? etudiant.promo.nom : ''}"></p></td>
+                        <td><p th:text="${etudiant.nom}"></p></td>
+                        <td><p th:text="${etudiant.prenom}"></p></td>
+                        <td class="text-center" th:classappend="${etudiant.stage == null ? 'grey' : ''}"><p th:if="${etudiant.stage != null}" th:text="${etudiant.stage.debut}"></p></td>
+                        <td class="text-center" th:classappend="${etudiant.stage == null ? 'grey' : ''}"><p th:if="${etudiant.stage != null}" th:text="${etudiant.stage.fin}"></p></td>
+                        <td class="text-center" th:classappend="${etudiant.stage == null ? 'grey' : ''}"><p th:if="${etudiant.stage != null && etudiant.stage.entreprise != null}" th:text="${etudiant.stage.entreprise.nom}"></p></td>
+                        <td class="text-center" th:classappend="${etudiant.stage == null ? 'grey' : ''}"><p th:if="${etudiant.stage != null}" th:text="${etudiant.stage.maitreDeStage}"></p></td>
+                        <td class="text-center" id="tuteur" th:classappend="${etudiant.enseignant == null ? 'grey' : ''}"><p th:if="${etudiant.enseignant != null}" th:text="${etudiant.enseignant.nom + ' ' + etudiant.enseignant.prenom}" ></p></td>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a th:if="${etudiants.size() > 0}" class="disabled btn btn-outline-success float-right" id="assign" href="#"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Assigner</a>
+            <a class="btn btn-outline-primary float-right" id="back" th:href="@{/}"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Retour</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

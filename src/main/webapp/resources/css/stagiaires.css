@@ -1,0 +1,99 @@
+.stagiaires-title{
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+
+.green{
+    background-color: #d4edda;
+    border:1px solid #c3e6cb;
+}
+
+.red{
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.green:hover{
+    background-color: #c3e6cb;
+}
+
+.red:hover{
+    background-color: #f5c6cb;
+}
+
+.boolean-td{
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.small-td{
+    width: 30px;
+    transform: rotate(-60deg);
+    white-space: nowrap;
+}
+
+.table-bordered thead td, .table-bordered thead th{
+    border-top: none;
+}
+
+table.table-bordered.table{
+    border : none;
+}
+
+#validate{
+    margin-left: 10px;
+    margin-bottom: 100px;
+}
+
+#details{
+    margin-left: 10px
+}
+
+td.entreprise p, td.date p{
+    margin-bottom: 0;
+}
+
+.table td{
+    vertical-align: inherit;
+    padding: 0.4rem;
+}
+
+p{
+    margin-bottom: 0;
+}
+
+td input.form-check-input{
+    position: relative;
+    left: 10px;
+}
+
+.note{
+    width: 50px;
+}
+
+.input-date{
+    width:170px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.maitre-de-stage{
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dirty{
+    border : 1px solid orange;
+}
+
+.alert-secondary{
+    margin-bottom: 0;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

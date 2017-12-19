@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/head(title='Login', style='login')">
+        <title>login</title>
+    </head>
+
+    <body>
+        <div th:replace="fragments/header"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-lg-6 offset-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h1>Connexion</h1>  
+                                </div>
+                            </div>
+                            <form method="post" th:object="${newUser}" th:action="@{/login}">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div th:if="${message != null}">
+                                            <div class="alert alert-info" role="alert">
+                                                <span th:text="${message}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div th:if="${error != null}">
+                                            <div class="alert alert-danger" role="alert">
+                                                <span th:text="${error}"></span>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="login">Nom d'utilisateur</label>
+                                            <input th:field="*{username}" id="login" type="text" name="login" class="form-control" placeholder="Nom d'utilisateur"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="passwordField">Mot de passe</label>
+                                            <input th:field="*{password}" type="password" class="form-control" id="passwordField" placeholder="Mot de passe" name="password"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-outline-primary float-right"><i class="fa fa-sign-in"></i> Se connecter</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div th:if="${logout == true}">
+            <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">X</span>
+                            </button>
+                            <p>Au revoir, A bientôt !</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+   

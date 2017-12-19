@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Header</title>
+    </head>
+    <body>
+        <nav th:fragment="header" class="navbar navbar-light bg-light justify-content-between">
+            <a class="navbar-brand" th:href="@{/home}">
+                <img th:src="@{/resources/images/logo.png}" width="30" height="30" alt=""/>
+                Stages
+            </a>
+            <form class="form-inline" th:action="@{/logout}" method="POST">
+                <div th:if="${user != null}">
+                    <p class="bienvenu">Bienvenue</p> <a th:href="@{/profil}"><span class="link" th:text="${user.enseignant.prenom + ' ' + user.enseignant.nom}"></span></a>
+
+                    <button type="submit" class="btn btn-outline-primary" th:href="@{/logout}"><i class="fa fa-power-off" aria-hidden="true"></i> Déconnectez vous</button>
+                </div>
+            </form>
+        </nav>
+    </body>
+</html>
